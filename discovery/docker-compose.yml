@@ -6,7 +6,6 @@ services:
         restart: always
         extra_hosts:
           - "discovery.etcd.io:52.8.171.81"
-        network_mode: bridge
         ports:
             - 2379
             - 2380
