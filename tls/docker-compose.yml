@@ -52,7 +52,6 @@ services:
             ETCD_PEER_KEY_FILE: /srv/etcd2-key.pem
             ETCD_PEER_CLIENT_CERT_AUTH: 1
     etcd3:
-        image: docker.io/hexfusion/etcd:v3.2.10_git
         image: gcr.io/etcd-development/etcd:v3.2.10
         restart: always
         ports:
