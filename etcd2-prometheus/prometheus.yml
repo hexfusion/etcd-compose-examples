@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 10s
+scrape_configs:
+- job_name: etcd
+  static_configs:
+    - targets: ['10.240.0.32:2379','10.240.0.33:2379','10.240.0.34:2379']
+  scheme: https
+  tls_config:
+    ca_file: /srv/ca.pem
