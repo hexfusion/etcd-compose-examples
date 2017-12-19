@@ -7,8 +7,6 @@ services:
         ports:
             - 2379
             - 2380
-        volumes:
-          - ./certs/:/certs/
         environment:
             ETCD_NAME: node1
             ETCD_DEBUG: 1
@@ -25,8 +23,6 @@ services:
         ports:
             - 2379
             - 2380
-        volumes:
-          - ./certs/:/certs/
         environment:
             ETCD_NAME: node2
             ETCD_DEBUG: 1
@@ -43,8 +39,6 @@ services:
         ports:
             - 2379
             - 2380
-        volumes:
-          - ./certs/:/certs/
         environment:
             ETCD_NAME: node3
             ETCDCTL_API: 3
