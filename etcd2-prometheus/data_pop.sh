@@ -11,13 +11,14 @@ function valid {
 
 function invalid {
     for i in `seq 1 1000`; do
-	    curl http://127.0.0.1:${etcdport}/v2/keys/$1 -XGET -d value=bar -v
+	    # generate 400
+	    curl -H 'Host:' http://127.0.0.1:${etcdport}/v2/keys/$1 -XGET -v
 	done
 }
 
 valid
 invalid
 
-echo -e "Complete!"
+echo -e "\nComplete!\n"
 
 echo "View results here http://127.0.0.1:$promport"
