@@ -1,12 +1,11 @@
 ### Setup
-
-inside of project dir
-
-`docker-compose up -d`
-
 ```
-$ docker port etcd2prometheus_prom_1
-9090/tcp -> 0.0.0.0:35896
-```
+$ git clone https://github.com/hexfusion/etcd-compose-examples.git
+$ cd etcd2-prometheus
+$ docker up -d
+$ ./data.pop.sh
+[..]
+Complete!
 
-view in brower http://127.0.0.1:35896
+View results here http://127.0.0.1:36012
+```
