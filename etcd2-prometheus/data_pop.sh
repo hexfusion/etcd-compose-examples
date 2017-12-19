@@ -3,21 +3,21 @@
 etcdport=`docker port etcd2prometheus_etcd1_1 | grep 2379 | cut -f2- -d:`
 promport=`docker port etcd2prometheus_prom_1 | cut -f2- -d:`
 
-function valid {
+function received {
     for i in `seq 1 1000`; do
-	    curl http://127.0.0.1:${etcdport}/v2/keys/$i
-	done
+        curl http://127.0.0.1:${etcdport}/v2/keys/$i
+    done
 }
 
-function invalid {
+function failed {
     for i in `seq 1 1000`; do
-	    # generate 400
-	    curl -H 'Host:' http://127.0.0.1:${etcdport}/v2/keys/$1 -XGET -v
-	done
+        # generate 400
+        curl -H 'Host:' http://127.0.0.1:${etcdport}/v2/keys/$1 -XGET -v
+    done
 }
 
-valid
-invalid
+received
+failed
 
 echo -e "\nComplete!\n"
 
