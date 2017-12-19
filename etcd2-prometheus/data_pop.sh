@@ -18,4 +18,6 @@ function invalid {
 valid
 invalid
 
+echo -e "Complete!"
+
 echo "View results here http://127.0.0.1:$promport"
