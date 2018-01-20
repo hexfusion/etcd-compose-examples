@@ -1,0 +1,23 @@
+{
+    "CN": "k8s-master",
+    "hosts": [
+        "172.16.21.41",
+        "172.16.21.42",
+        "172.16.21.43",
+        "127.0.0.1",
+        "k8s-master",
+        "k8s-node1",
+        "k8s-node2"
+    ],
+    "key": {
+        "algo": "ecdsa",
+        "size": 256
+    },
+    "names": [
+        {
+            "C": "US",
+            "L": "NY",
+            "ST": "Binghamton"
+        }
+    ]
+}

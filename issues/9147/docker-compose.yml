@@ -1,0 +1,97 @@
+version: '2'
+services:
+
+    k8s-master:
+        image: gcr.io/etcd-development/etcd:v3.2.9
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        volumes:
+          - ./certs/:/srv/
+        networks:
+          etcd_net:
+            ipv4_address: 172.16.21.41
+        environment:
+            ETCD_NAME: k8s-master
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.41:2380
+            ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://172.16.21.41:2379
+            ETCD_LISTEN_PEER_URLS: https://172.16.21.41:2380
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.41:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
+            ETCD_PEER_CERT_FILE: /srv/k8s-master.pem
+            ETCD_PEER_KEY_FILE: /srv/k8s-master-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+    k8s-node1:
+        image: gcr.io/etcd-development/etcd:v3.2.9
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        volumes:
+          - ./certs/:/srv/
+        networks:
+          etcd_net:
+            ipv4_address: 172.16.21.42
+        environment:
+            ETCD_NAME: k8s-node1
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.42:2380
+            ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://172.16.21.42:2379
+            ETCD_LISTEN_PEER_URLS: https://172.16.21.42:2380
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.42:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
+            ETCD_PEER_CERT_FILE: /srv/k8s-node1.pem
+            ETCD_PEER_KEY_FILE: /srv/k8s-node1-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+    k8s-node2:
+        image: gcr.io/etcd-development/etcd:v3.2.9
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        volumes:
+          - ./certs/:/srv/
+        networks:
+          etcd_net:
+            ipv4_address: 172.16.21.43
+        environment:
+            ETCD_NAME: k8s-node2
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.43:2380
+            ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://172.16.21.43:2379
+            ETCD_LISTEN_PEER_URLS: https://172.16.21.43:2380
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.43:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
+            ETCD_PEER_CERT_FILE: /srv/k8s-node2.pem
+            ETCD_PEER_KEY_FILE: /srv/k8s-node2-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+networks:
+  etcd_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.21.0/24
+        gateway: 172.16.21.1
