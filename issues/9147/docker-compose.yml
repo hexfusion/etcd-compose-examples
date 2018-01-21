@@ -18,11 +18,12 @@ services:
             ETCD_DEBUG: 1
             ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.41:2380
             ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+# error            ETCD_INITIAL_CLUSTER: etcd-0=https://172.16.21.43:2380,etcd-1=https://172.16.21.42:2380,etcd-2=https://172.16.21.41:2380
             ETCD_INITIAL_CLUSTER_STATE: new
             ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
             ETCD_LISTEN_CLIENT_URLS: https://172.16.21.41:2379
             ETCD_LISTEN_PEER_URLS: https://172.16.21.41:2380
-            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.41:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.41:2379,https://127.0.0.1:2379
             ETCD_CERT_FILE: /srv/server.pem
             ETCD_KEY_FILE: /srv/server-key.pem
             ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
@@ -46,11 +47,12 @@ services:
             ETCD_DEBUG: 1
             ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.42:2380
             ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+# error            ETCD_INITIAL_CLUSTER: etcd-0=https://172.16.21.43:2380,etcd-1=https://172.16.21.42:2380,etcd-2=https://172.16.21.41:2380
             ETCD_INITIAL_CLUSTER_STATE: new
             ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
             ETCD_LISTEN_CLIENT_URLS: https://172.16.21.42:2379
             ETCD_LISTEN_PEER_URLS: https://172.16.21.42:2380
-            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.42:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.42:2379,https://127.0.0.1:2379
             ETCD_CERT_FILE: /srv/server.pem
             ETCD_KEY_FILE: /srv/server-key.pem
             ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
@@ -74,11 +76,12 @@ services:
             ETCD_DEBUG: 1
             ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.21.43:2380
             ETCD_INITIAL_CLUSTER: k8s-node2=https://172.16.21.43:2380,k8s-node1=https://172.16.21.42:2380,k8s-master=https://172.16.21.41:2380
+# error            ETCD_INITIAL_CLUSTER: etcd-0=https://172.16.21.43:2380,etcd-1=https://172.16.21.42:2380,etcd-2=https://172.16.21.41:2380
             ETCD_INITIAL_CLUSTER_STATE: new
             ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
             ETCD_LISTEN_CLIENT_URLS: https://172.16.21.43:2379
             ETCD_LISTEN_PEER_URLS: https://172.16.21.43:2380
-            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.43:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.21.43:2379,https://127.0.0.1:2379
             ETCD_CERT_FILE: /srv/server.pem
             ETCD_KEY_FILE: /srv/server-key.pem
             ETCD_PEER_TRUSTED_CA_FILE: /srv/etcd-root-ca.pem
