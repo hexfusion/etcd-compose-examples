@@ -1,0 +1,66 @@
+version: '2'
+services:
+
+    etcd-01:
+        image: quay.io/coreos/etcd:v3.3.0
+        restart: always
+        ports:
+            - 2379
+            - 2280
+        extra_hosts:
+          - "discovery.etcd.io:54.183.250.138"
+        volumes:
+          - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+        hostname: etcd-01
+        domainname: hexfusion.local
+        networks:
+          etcd_net:
+            ipv4_address: 172.16.26.41
+        environment:
+            ETCD_NAME: etcd-01
+            ETCD_DEBUG: 1
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.26.41:2280
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://172.16.26.41:2379
+            ETCD_LISTEN_PEER_URLS: https://172.16.26.41:2280
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.26.41:2379
+            ETCD_DISCOVERY: https://discovery.etcd.io/c958ebdce03728b18be20a69a892d028 
+            ETCD_PEER_AUTO_TLS: 1
+            ETCD_AUTO_TLS: 1
+    etcd-proxy:
+        image: quay.io/coreos/etcd:v3.3.0
+        restart: always
+        ports:
+            - 2379
+            - 2280
+        volumes:
+          - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+        extra_hosts:
+          - "discovery.etcd.io:54.183.250.138"
+        hostname: etcd-proxy
+        domainname: hexfusion.local
+        networks:
+          etcd_net:
+            ipv4_address: 172.16.26.42
+        environment:
+            ETCD_NAME: etcd-proxy
+            ETCD_DEBUG: 1
+            ETCD_PROXY: "on"
+            ETCD_LISTEN_CLIENT_URLS: https://172.16.26.42:2379
+            ETCD_LISTEN_PEER_URLS: https://172.16.26.42:2280
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_DISCOVERY: https://discovery.etcd.io/c958ebdce03728b18be20a69a892d028 
+            ETCD_PEER_AUTO_TLS: 1
+            ETCD_AUTO_TLS: 1
+networks:
+  etcd_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.26.0/24
+        gateway: 172.16.26.1
+
