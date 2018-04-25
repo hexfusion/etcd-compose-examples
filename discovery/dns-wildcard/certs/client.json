@@ -1,0 +1,21 @@
+{
+    "CN": "*",
+    "hosts": [
+        "ps.idps.a.hexfusion.local",
+        "172.16.8.219",
+        "172.16.8.220",
+        "172.16.8.221"
+    ],
+    "key": {
+        "algo": "ecdsa",
+        "size": 256
+    },
+    "names": [
+        {
+            "C": "US",
+            "ST": "CA",
+            "L": "San Francisco"
+        }
+    ]
+}
+
