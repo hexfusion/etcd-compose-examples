@@ -4,4 +4,4 @@ etcdctl --cacert certs/ca.pem \
     --cert certs/client.pem \
 	--key certs/client-key.pem \
 	--endpoints=https://172.16.8.219:2379 \
-    --insecure-skip-tls-verify=true member list
+    member list
