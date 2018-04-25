@@ -1,0 +1,114 @@
+version: '2'
+services:
+
+    a-47812047839021744:
+        image: gcr.io/etcd-development/etcd:v3.3.4
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        hostname: a-47812047839021744
+        domainname: ps.idps.a.hexfusion.local
+        dns: 192.168.8.60
+        networks:
+          app_net:
+            ipv4_address: 172.16.8.219
+        volumes:
+          - ./certs/:/srv/
+        environment:
+            ETCD_NAME: a-47812047839021744.ps.idps.a.hexfusion.local
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_DISCOVERY_SRV: ps.idps.a.hexfusion.local
+            # ETCD_INITIAL_ADVERTISE_PEER_URLS: https://a-47812047839021744.ps.idps.a.hexfusion.local:2380
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.8.219:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://0.0.0.0:2379 
+            ETCD_LISTEN_PEER_URLS: https://0.0.0.0:2380
+            # ETCD_ADVERTISE_CLIENT_URLS: https://a-47812047839021744.ps.idps.a.hexfusion.local:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.8.219:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/ca.pem
+            ETCD_PEER_CERT_FILE: /srv/peer.pem
+            ETCD_PEER_KEY_FILE: /srv/peer-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+    a-08542758492847575:
+        image: gcr.io/etcd-development/etcd:v3.3.4
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        hostname: a-08542758492847575
+        domainname: ps.idps.a.hexfusion.local
+        networks:
+          app_net:
+            ipv4_address: 172.16.8.220
+        dns: 192.168.8.60
+        volumes:
+          - ./certs/:/srv/
+        environment:
+            ETCD_NAME: a-08542758492847575.ps.idps.a.hexfusion.local
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_DISCOVERY_SRV: ps.idps.a.hexfusion.local
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.8.220:2380
+            # ETCD_INITIAL_ADVERTISE_PEER_URLS: https://a-08542758492847575.ps.idps.a.hexfusion.local:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://0.0.0.0:2379
+            ETCD_LISTEN_PEER_URLS: https://0.0.0.0:2380
+            # ETCD_ADVERTISE_CLIENT_URLS: https://a-08542758492847575.ps.idps.a.hexfusion.local:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.8.220:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/ca.pem
+            ETCD_PEER_CERT_FILE: /srv/peer.pem
+            ETCD_PEER_KEY_FILE: /srv/peer-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+    a-43543262245455521:
+        image: gcr.io/etcd-development/etcd:v3.3.4
+        restart: always
+        ports:
+            - 2379
+            - 2380
+        hostname: a-43543262245455521
+        domainname: ps.idps.a.hexfusion.local
+        dns: 192.168.8.60
+        networks:
+          app_net:
+            ipv4_address: 172.16.8.221
+        volumes:
+          - ./certs/:/srv/
+        environment:
+            ETCD_NAME: a-43543262245455521.ps.idps.a.hexfusion.local
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_DISCOVERY_SRV: ps.idps.a.hexfusion.local 
+            # ETCD_INITIAL_ADVERTISE_PEER_URLS: https://a-43543262245455521.ps.idps.a.hexfusion.local:2380
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: https://172.16.8.221:2380
+            ETCD_INITIAL_CLUSTER_STATE: new
+            ETCD_INITIAL_CLUSTER_TOKEN: etcd-ftw
+            ETCD_LISTEN_CLIENT_URLS: https://0.0.0.0:2379
+            ETCD_LISTEN_PEER_URLS: https://0.0.0.0:2380
+            # ETCD_ADVERTISE_CLIENT_URLS: https://a-43543262245455521.ps.idps.a.hexfusion.local:2379
+            ETCD_ADVERTISE_CLIENT_URLS: https://172.16.8.221:2379
+            ETCD_CERT_FILE: /srv/server.pem
+            ETCD_KEY_FILE: /srv/server-key.pem
+            ETCD_PEER_TRUSTED_CA_FILE: /srv/ca.pem
+            ETCD_PEER_CERT_FILE: /srv/peer.pem
+            ETCD_PEER_KEY_FILE: /srv/peer-key.pem
+            ETCD_PEER_CLIENT_CERT_AUTH: 1
+
+networks:
+  app_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.8.0/24
+        gateway: 172.16.8.1
+
